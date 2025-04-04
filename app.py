@@ -5,7 +5,6 @@ import random
 app = Flask(__name__)
 app.secret_key = "supersecretkey"
 
-# Simulated disease database
 DISEASES = ["cold", "flu", "migraine", "allergy", "covid-19", "sinusitis"]
 
 @app.route("/")
@@ -17,10 +16,8 @@ def update_python():
     data = request.get_json()
     symptoms = data.get("input", "").lower()
     
-    # Simulated diagnosis (random)
     diagnosis = random.choice(DISEASES)
 
-    # Store in session as a substitute for localStorage
     if "healthRecords" not in session:
         session["healthRecords"] = []
     session["healthRecords"].append(symptoms)
@@ -29,7 +26,7 @@ def update_python():
 
 @app.route("/output")
 def output():
-    time.sleep(7)  # Simulate processing delay
+    time.sleep(7)  
     diagnosis = random.choice(DISEASES)
     return diagnosis
 

@@ -11,13 +11,13 @@ def backend(insx, titles, descps):
     nltk.download("omw-1.4")
 
     def derive(texts):
-        lem = WordNetLemmatizer() # this word lemmatizer function just gets the deriviatives of the word using the databases downloaded earlier
+        lem = WordNetLemmatizer() 
         devd = []
         for text in texts:
             words = text.split()
             combined = " ".join(
-                lem.lemmatize(word.lower(), pos=wordnet.VERB) + " " + # for verbs
-                lem.lemmatize(word.lower(), pos=wordnet.NOUN) # and nouns
+                lem.lemmatize(word.lower(), pos=wordnet.VERB) + " " + 
+                lem.lemmatize(word.lower(), pos=wordnet.NOUN) 
                 for word in words
             )
             devd.append(combined)
@@ -25,19 +25,19 @@ def backend(insx, titles, descps):
 
     def search(inn):
 
-        derive_descps = derive(descps) # using the derive function
+        derive_descps = derive(descps) 
 
-        vec = TfidfVectorizer() # converting the words into numbers/vectors/tokens using an importance algorithm that conisders how many times a word is used, the uniqueness of the word, etc.
-        vector_descps = vec.fit_transform(derive_descps) # fitting the vectors to the words
+        vec = TfidfVectorizer() 
+        vector_descps = vec.fit_transform(derive_descps) 
 
-        main_m = KNeighborsClassifier(n_neighbors=1) # modified complex distance formula to find distance between vectors and choose the closest one
-        main_m.fit(vector_descps, titles) # assign the vectorized descriptions to the titles
+        main_m = KNeighborsClassifier(n_neighbors=1) 
+        main_m.fit(vector_descps, titles) 
 
 
         def search_model(ina):
-            d_ina = derive([ina])[0] # derive input nouns and verbs
-            ina_vec = vec.transform([d_ina]) # vectorize derived input
-            prediction = main_m.predict(ina_vec) # use the distance formula neighbor algorithm to find the closest matching titles based on descriptions
+            d_ina = derive([ina])[0] 
+            ina_vec = vec.transform([d_ina]) 
+            prediction = main_m.predict(ina_vec) 
             return prediction[0]
 
         final = search_model(insx)
@@ -78,8 +78,8 @@ stuff = [
 
 
 
-cond = [i[0] for i in stuff] # spllitting the 2d array into the conditions i[0] the first option
-symp = [i[1] for i in stuff] # and i[1] the second one with the descriptions for everything
+cond = [i[0] for i in stuff] 
+symp = [i[1] for i in stuff] 
 
 
 

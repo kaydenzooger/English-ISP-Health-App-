@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Health Diagnosis</title>
   <style>
-    /* General Styles */
+
     * {
       margin: 0;
       padding: 0;
@@ -88,10 +88,6 @@
       transition: background-color 0.3s ease;
     }
 
-    button:hover {
-      background-color: #005bb5;
-    }
-
     #output {
       margin-top: 20px;
       font-size: 1.2em;
@@ -121,154 +117,6 @@
       100% { width: 0; }
     }
 
-    /* 🌓 Dark Mode Styles */
-    body.dark-mode {
-      background-color: #121212;
-      color: #f0f0f0;
-    }
-
-    body.dark-mode header {
-      background-color: #1e1e1e;
-    }
-
-    body.dark-mode .btn {
-      background-color: #333;
-      color: #f0f0f0;
-    }
-
-    body.dark-mode .btn:hover {
-      background-color: #444;
-    }
-
-    body.dark-mode textarea {
-      background-color: #1e1e1e;
-      color: #f0f0f0;
-      border-color: #555;
-    }
-
-    body.dark-mode #output {
-      color: #66b2ff;
-    }
-
-    body.dark-mode .loading-bar-container {
-      background-color: #333;
-    }
-
-    body.dark-mode .loading-bar {
-      background-color: #66b2ff;
-    }
-    #dashboard {
-      display: none;
-      text-align: center;
-    }
-
-    #healthRecords, #healthTips, #funFacts {
-      margin-top: 30px;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    #healthTools {
-      margin-top: 40px;
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    #healthTools btn {
-      width: 1000px;
-      height: 50px;
-      font-size: 1.1em;
-      padding: 10px 20px;
-      color: white;
-      background-color: #0073e6;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      text-align: center;
-    }
-
-    #healthTips ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-
-    #healthTips li {
-      margin: 10px 0;
-      font-size: 1.1em;
-    }
-
-    .box {
-      background-color: #f9f9f9;
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      margin-bottom: 30px;
-    }
-
-    .box h2 {
-      font-size: 1.8em;
-      color: #333;
-      margin-bottom: 20px;
-    }
-
-    .box-content {
-      margin-top: 10px;
-    }
-
-    .disease-item {
-      background-color: #fff;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .disease-item h3 {
-      font-size: 1.5em;
-      color: #0073e6;
-    }
-
-    .disease-item p {
-      font-size: 1.1em;
-      color: #333;
-      line-height: 1.6;
-    }
-
-    .health-image {
-      max-width: 100%;
-      height: auto;
-      margin: 20px 0;
-      border-radius: 10px;
-    }
-
-    footer {
-      background-color: #f9f9f9;
-      padding: 20px;
-      text-align: center;
-      font-size: 12px;
-      color: #555;
-      border-top: 1px solid #ddd;
-    }
-
-    footer ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-
-    footer li {
-      margin: 10px 0;
-    }
-
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2em;
-      }
-
       header p {
         font-size: 1em;
       }
@@ -280,16 +128,17 @@
       button {
         font-size: 1em;
       }
-    }
+  
+
   </style>
 </head>
 <body>
   <header>
     <h1>Health Diagnosis Tool</h1>
     <p>Your personal health assistant for symptom analysis</p>
-    <div class="buttons-dash">
-      <a href="diagnosis.html" class=""></a>
-      <a href="dashboard.html" class="btn">Dashboard</a>
+
+
+
     </div>
   </header>
   <div id="diagnosis">
@@ -308,21 +157,11 @@
     </main>
   </div>
 
-  <div id="dashboard">
-    <header>
-      <h2>Dashboard</h2>
-      <p>Your health insights and tips</p>
-      <button id="backToMain" class="btn">Back to Main</button>
-    </header>
-    
-    </ul>
-  </footer>
+
   <script>
     const diagnosisLink = document.querySelector('a[href="diagnosis.html"]');
     const dashboardLink = document.querySelector('a[href="dashboard.html"]');
     const diagnosisPage = document.getElementById("diagnosis");
-    const dashboardPage = document.getElementById("dashboard");
-    const backToMainButton = document.getElementById("backToMain");
     let buttonClicked = false;
   
     const loadingBar = document.getElementById("load");
@@ -336,19 +175,6 @@
       diagnosisPage.style.display = "block";
       document.querySelector('header').style.display = "none";
       dashboardPage.style.display = "none";
-    });
-  
-    dashboardLink?.addEventListener("click", function(e) {
-      e.preventDefault();
-      dashboardPage.style.display = "block";
-      document.querySelector('header').style.display = "none";
-      diagnosisPage.style.display = "none";
-    });
-  
-    backToMainButton?.addEventListener("click", function () {
-      dashboardPage.style.display = "none";
-      document.querySelector('header').style.display = "block";
-      diagnosisPage.style.display = "block";
     });
   
     clearButton?.addEventListener("click", function() {
@@ -430,17 +256,7 @@
       }
     });
   
-    (function loadStoredRecords() {
-      let records = localStorage.getItem('healthRecords');
-      if (records) {
-        records = JSON.parse(records);
-        records.forEach(record => {
-          const listItem = document.createElement("li");
-          listItem.textContent = record;
-          recordList.appendChild(listItem);
-        });
-      }
-    })();
+  
   </script>
   </body>
   </html>
