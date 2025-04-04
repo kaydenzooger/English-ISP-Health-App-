@@ -1,0 +1,6 @@
+if (performance.navigation.type === 1) { // if reload send signal /reload to server.js file
+    fetch('/reload', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => console.log('reload ', data))
+        .catch(error => console.error('error ', error));
+}
