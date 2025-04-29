@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Health Diagnosis</title>
   <style>
-
+    /* General Styles */
     * {
       margin: 0;
       padding: 0;
@@ -88,6 +88,10 @@
       transition: background-color 0.3s ease;
     }
 
+    button:hover {
+      background-color: #005bb5;
+    }
+
     #output {
       margin-top: 20px;
       font-size: 1.2em;
@@ -117,6 +121,154 @@
       100% { width: 0; }
     }
 
+    /* 🌓 Dark Mode Styles */
+    body.dark-mode {
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+
+    body.dark-mode header {
+      background-color: #1e1e1e;
+    }
+
+    body.dark-mode .btn {
+      background-color: #333;
+      color: #f0f0f0;
+    }
+
+    body.dark-mode .btn:hover {
+      background-color: #444;
+    }
+
+    body.dark-mode textarea {
+      background-color: #1e1e1e;
+      color: #f0f0f0;
+      border-color: #555;
+    }
+
+    body.dark-mode #output {
+      color: #66b2ff;
+    }
+
+    body.dark-mode .loading-bar-container {
+      background-color: #333;
+    }
+
+    body.dark-mode .loading-bar {
+      background-color: #66b2ff;
+    }
+    #dashboard {
+      display: none;
+      text-align: center;
+    }
+
+    #healthRecords, #healthTips, #funFacts {
+      margin-top: 30px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #healthTools {
+      margin-top: 40px;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #healthTools btn {
+      width: 1000px;
+      height: 50px;
+      font-size: 1.1em;
+      padding: 10px 20px;
+      color: white;
+      background-color: #0073e6;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-align: center;
+    }
+
+    #healthTips ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    #healthTips li {
+      margin: 10px 0;
+      font-size: 1.1em;
+    }
+
+    .box {
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
+
+    .box h2 {
+      font-size: 1.8em;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .box-content {
+      margin-top: 10px;
+    }
+
+    .disease-item {
+      background-color: #fff;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .disease-item h3 {
+      font-size: 1.5em;
+      color: #0073e6;
+    }
+
+    .disease-item p {
+      font-size: 1.1em;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .health-image {
+      max-width: 100%;
+      height: auto;
+      margin: 20px 0;
+      border-radius: 10px;
+    }
+
+    footer {
+      background-color: #f9f9f9;
+      padding: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: #555;
+      border-top: 1px solid #ddd;
+    }
+
+    footer ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    footer li {
+      margin: 10px 0;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2em;
+      }
+
       header p {
         font-size: 1em;
       }
@@ -128,17 +280,18 @@
       button {
         font-size: 1em;
       }
-  
-
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>Health Diagnosis Tool</h1>
     <p>Your personal health assistant for symptom analysis</p>
-
-
-
+    <div class="buttons-dash">
+      <a href="diagnosis.html" class=""></a>
+      <a href="dashboard.html" class="btn">Dashboard</a>
+      <!-- ✅ Dark Mode Toggle Button -->
+      <button id="toggleDarkMode" class="btn" style="background-color:#222;">Toggle Dark Mode</button>
     </div>
   </header>
   <div id="diagnosis">
@@ -157,11 +310,111 @@
     </main>
   </div>
 
+  <div id="dashboard">
+    <header>
+      <h2>Dashboard</h2>
+      <p>Your health insights and tips</p>
+      <button id="backToMain" class="btn">Back to Main</button>
+    </header>
+    <main>
+      <div id="healthRecords">
+        <h2>Your Health Records</h2>
+        <p>No records available yet. Start by entering your symptoms above.</p>
+        <ul id="recordList"></ul>
+      </div>
 
+      <div id="healthTools">
+        <h2>Other Health Tools</h2>
+        <a href="bodyfatpercentagecalc.html" class="btn">Body Fat Percentage Calculator</a>
+        <a href="bmicalc.html" class="btn">BMI Calculator</a>
+        <a href="caloriecalc.html" class="btn">Calorie Calculator</a>
+        <a href="idealweightcalc.html" class="btn">Ideal Weight Calculator</a>
+        <a href="mealplanner.html" class="btn">Meal Planner</a>
+      </div>
+      <div class="box">
+        <h2>Common Diseases and Their Treatments</h2>
+        <div class="box-content">
+          <div class="disease-item">
+            <h3>Common Cold</h3>
+            <p><strong>Symptoms:</strong> Runny nose, sore throat, cough, mild fever, fatigue.</p>
+            <p><strong>Treatment:</strong> Rest, staying hydrated, using nasal sprays, throat lozenges, and pain relievers.</p>
+            <p><strong>Medications:</strong> Acetaminophen (Tylenol), Ibuprofen (Advil), Decongestants (Sudafed), Cough Syrup (Robitussin).</p>
+            <p><a href="https://www.mayoclinic.org/diseases-conditions/common-cold/symptoms-causes/syc-20351605" target="_blank">Learn more</a></p>
+          </div>
+
+          <div class="disease-item">
+            <h3>Flu (Influenza)</h3>
+            <p><strong>Symptoms:</strong> High fever, chills, body aches, fatigue, cough, sore throat, headache.</p>
+            <p><strong>Treatment:</strong> Rest, fluids, antiviral medications, and fever reducers.</p>
+            <p><strong>Medications:</strong> Oseltamivir (Tamiflu), Acetaminophen (Tylenol), Ibuprofen (Advil), Antihistamines (Benadryl).</p>
+            <p><a href="https://www.cdc.gov/flu/" target="_blank">Learn more</a></p>
+          </div>
+
+          <div class="disease-item">
+            <h3>COVID-19</h3>
+            <p><strong>Symptoms:</strong> Fever, cough, shortness of breath, loss of taste or smell, fatigue.</p>
+            <p><strong>Treatment:</strong> Rest, hydration, and over-the-counter medications to manage symptoms. Severe cases may require hospitalization.</p>
+            <p><strong>Medications:</strong> Remdesivir, Dexamethasone, Acetaminophen (Tylenol), Ibuprofen (Advil).</p>
+            <p><a href="https://www.cdc.gov/coronavirus/2019-ncov/" target="_blank">Learn more</a></p>
+          </div>
+
+          <div class="disease-item">
+            <h3>Strep Throat</h3>
+            <p><strong>Symptoms:</strong> Sore throat, fever, swollen lymph nodes, red spots on the roof of the mouth.</p>
+            <p><strong>Treatment:</strong> Antibiotics and rest. Gargling warm salt water can help soothe the throat.</p>
+            <p><strong>Medications:</strong> Penicillin, Amoxicillin, Ibuprofen (Advil), Acetaminophen (Tylenol).</p>
+            <p><a href="https://www.cdc.gov/group-a-strep/about/strep-throat.html" target="_blank">Learn more</a></p>
+          </div>
+
+          <div class="disease-item">
+            <h3>Allergies</h3>
+            <p><strong>Symptoms:</strong> Sneezing, runny nose, itchy eyes, congestion, coughing.</p>
+            <p><strong>Treatment:</strong> Avoiding allergens, taking antihistamines, using nasal sprays or eye drops.</p>
+            <p><strong>Medications:</strong> Loratadine (Claritin), Diphenhydramine (Benadryl), Fluticasone (Flonase), Cetirizine (Zyrtec).</p>
+            <p><a href="https://www.cdc.gov/climate-health/php/effects/allergens-and-pollen.html" target="_blank">Learn more</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div id="healthTips">
+        <h2>Daily Health Tips</h2>
+        <ul>
+          <li>Drink plenty of water to stay hydrated.</li>
+          <li>Exercise for at least 30 minutes a day.</li>
+          <li>Get enough sleep—7-8 hours each night.</li>
+          <li>Eat a balanced diet rich in fruits and vegetables.</li>
+          <li>Manage stress with relaxation techniques like deep breathing.</li>
+          <li>Take breaks throughout the day to avoid burnout.</li>
+        </ul>
+      </div>
+
+      <div id="funFacts">
+        <h2>Fun Facts</h2>
+        <ul>
+          <li>Your stomach gets a new lining every 3 to 4 days—otherwise, it would digest itself!</li>
+          <li>Laughter can increase blood flow by 20%, working like a mini cardio workout for your heart.</li>
+          <li>If you laid out all the blood vessels in your body, they would stretch around the Earth twice!</li>
+          <li>Sleeping less than 6 hours a night for a week makes your brain function like you're legally drunk.</li>
+          <li>Your bones are actually stronger than steel—pound for pound, they can withstand more pressure!</li>
+        </ul>
+      </div>
+    </main>
+  </div>
+
+  <footer>
+    <ul>
+      <strong>Disclaimer:</strong>
+      <li>The Health Diagnosis Tool is a wellness and diagnostic support platform intended for informational purposes only. It does not replace professional medical advice, diagnosis, or treatment.</li>
+      <li>Always consult a qualified healthcare provider for any medical concerns. The Health Diagnosis Tool and its creators are not liable for any misdiagnosis, inaccuracies, or consequences resulting from the use of this app.</li>
+      <li>By using this platform, you agree to these terms and understand the limitations of the service.</li>
+    </ul>
+  </footer>
   <script>
     const diagnosisLink = document.querySelector('a[href="diagnosis.html"]');
     const dashboardLink = document.querySelector('a[href="dashboard.html"]');
     const diagnosisPage = document.getElementById("diagnosis");
+    const dashboardPage = document.getElementById("dashboard");
+    const backToMainButton = document.getElementById("backToMain");
     let buttonClicked = false;
   
     const loadingBar = document.getElementById("load");
@@ -175,6 +428,19 @@
       diagnosisPage.style.display = "block";
       document.querySelector('header').style.display = "none";
       dashboardPage.style.display = "none";
+    });
+  
+    dashboardLink?.addEventListener("click", function(e) {
+      e.preventDefault();
+      dashboardPage.style.display = "block";
+      document.querySelector('header').style.display = "none";
+      diagnosisPage.style.display = "none";
+    });
+  
+    backToMainButton?.addEventListener("click", function () {
+      dashboardPage.style.display = "none";
+      document.querySelector('header').style.display = "block";
+      diagnosisPage.style.display = "block";
     });
   
     clearButton?.addEventListener("click", function() {
@@ -256,7 +522,27 @@
       }
     });
   
+    (function loadStoredRecords() {
+      let records = localStorage.getItem('healthRecords');
+      if (records) {
+        records = JSON.parse(records);
+        records.forEach(record => {
+          const listItem = document.createElement("li");
+          listItem.textContent = record;
+          recordList.appendChild(listItem);
+        });
+      }
+    })();
   
+    const toggleDarkMode = document.getElementById("toggleDarkMode");
+    if (localStorage.getItem("darkMode") === "enabled") {
+      document.body.classList.add("dark-mode");
+    }
+    toggleDarkMode?.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      const isDark = document.body.classList.contains("dark-mode");
+      localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
+    });
   </script>
   </body>
   </html>
