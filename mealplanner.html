@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Planner</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e6f0ff;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+        input, button {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1.1em;
+        }
+        button {
+            color: white;
+            background-color: #0073e6;
+            border: none;
+            cursor: pointer;
+            display: block;
+            margin: 10px auto;
+        }
+        button:hover {
+            background-color: #005bb5;
+        }
+        #meal-plan, #calories {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #0073e6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Meal Planner</h2>
+        <label for="weight">Enter your weight (lbs):</label>
+        <input type="number" id="weight" placeholder="Enter weight...">
+        <button onclick="getMealPlan()">Get Meal Plan</button>
+        <h3>Your Meal Plan:</h3>
+        <p id="meal-plan"></p>
+        <button id="calorie-btn" style="display:none;" onclick="getCalories()">Get Estimated Calories</button>
+        <p id="calories"></p>
+        <button class="back-btn" onclick="window.location.href='index.html'">Back to Home</button>
+
+    </div>
+    <script>
+        let currentMeal = "";
+        function getMealPlan() {
+            let weight = document.getElementById("weight").value;
+            if (weight < 110) {
+                currentMeal = "Fried chicken, mashed potatoes, and a soda";
+                document.getElementById("meal-plan").innerText = "You are a stick. Go eat something, anything. Let's try fried chicken, mashed potatoes, and a soda.";
+            } else if (weight >= 110 && weight < 175) {
+                currentMeal = "Chicken and rice";
+                document.getElementById("meal-plan").innerText = "Try a balanced chicken and rice meal.";
+            } else {
+                currentMeal = "Salmon with rice and water";
+                document.getElementById("meal-plan").innerText = "You are fat. Let's try a salmon with rice and water.";
+            }
+            document.getElementById("calorie-btn").style.display = "block";
+            document.getElementById("calories").innerText = "";
+        }
+
+        function getCalories() {
+            let calorieCount = 0;
+            if (currentMeal === "Fried chicken, mashed potatoes, and a soda") {
+                calorieCount = 1200;
+            } else if (currentMeal === "Chicken and rice") {
+                calorieCount = 700;
+            } else if (currentMeal === "Salmon with rice and water") {
+                calorieCount = 500;
+            }
+            document.getElementById("calories").innerText = "Estimated Calories: " + calorieCount + " kcal";
+        }
+    </script>
+</body>
+</html>

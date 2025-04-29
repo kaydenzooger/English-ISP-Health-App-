@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e6f0ff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #0073e6;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+        }
+
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            text-align: left;
+        }
+
+        label, input, select {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        input, select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.1em;
+            color: white;
+            background-color: #0073e6;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+        }
+
+        #calorieResult {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #0073e6;
+        }
+
+        footer {
+            background-color: #f9f9f9;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #555;
+            border-top: 1px solid #ddd;
+        }
+
+        footer a {
+            color: #0073e6;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Calorie Calculator</h1>
+        <p>Calculate your daily calorie needs</p>
+    </header>
+
+    <main>
+        <form id="calorieForm">
+            <label for="age">Age (in years):</label>
+            <input type="number" id="age" required>
+
+            <label for="weight">Weight (in kg):</label>
+            <input type="number" id="weight" required>
+
+            <label for="height">Height (in cm):</label>
+            <input type="number" id="height" required>
+
+            <label for="gender">Gender:</label>
+            <select id="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+
+            <label for="activity">Activity Level:</label>
+            <select id="activity">
+                <option value="1.2">Sedentary (little to no exercise)</option>
+                <option value="1.375">Lightly active (light exercise 1-3 days/week)</option>
+                <option value="1.55">Moderately active (moderate exercise 3-5 days/week)</option>
+                <option value="1.725">Very active (hard exercise 6-7 days a week)</option>
+                <option value="1.9">Super active (very hard exercise, physical job, or training twice a day)</option>
+            </select>
+
+            <button type="submit">Calculate Calories</button>
+            <br><br>
+            <a href="index.html"><button>Back to Home</button></a>
+
+        </form>
+
+        <div id="calorieResult"></div>
+        
+    </main>
+
+    
+        
+    
+
+    <script>
+        document.getElementById('calorieForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const age = parseInt(document.getElementById('age').value);
+            const weight = parseInt(document.getElementById('weight').value);
+            const height = parseInt(document.getElementById('height').value);
+            const gender = document.getElementById('gender').value;
+            const activity = parseFloat(document.getElementById('activity').value);
+
+            let bmr;
+            if (gender === "male") {
+                bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+            } else {
+                bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+            }
+
+            const tdee = bmr * activity;
+
+            document.getElementById('calorieResult').innerHTML = `
+                <h3>Your Daily Calorie Requirement</h3>
+                <p>Estimated daily calorie needs: <strong>${Math.round(tdee)} calories/day</strong>.</p>
+            `;
+        });
+    </script>
+</body>
+</html>

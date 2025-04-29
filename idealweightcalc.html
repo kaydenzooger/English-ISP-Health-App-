@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ideal Weight Calculator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e6f0ff;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1.1em;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1.1em;
+            color: white;
+            background-color: #0073e6;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #005bb5;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #0073e6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ideal Weight Calculator</h1>
+        <p>Enter your height (cm) and gender:</p>
+        <input type="number" id="height" placeholder="Height (cm)" required>
+        <select id="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+        <br>
+        <button onclick="calculateIdealWeight()">Calculate Ideal Weight</button>
+        <p id="result"></p>
+        <br>
+        <a href="index.html"><button>Back to Home</button></a>
+    </div>
+
+    <script>
+        function calculateIdealWeight() {
+            const height = parseFloat(document.getElementById('height').value);
+            const gender = document.getElementById('gender').value;
+
+            if (height > 0) {
+                let idealWeight = 0;
+
+                const heightInMeters = height / 100;
+
+                const minBMI = 18.5;
+                const maxBMI = 24.9;
+
+                const minWeight = (minBMI * (heightInMeters * heightInMeters)).toFixed(2);
+                const maxWeight = (maxBMI * (heightInMeters * heightInMeters)).toFixed(2);
+
+                document.getElementById('result').textContent = `Your ideal weight range is ${minWeight} kg to ${maxWeight} kg.`;
+            } else {
+                document.getElementById('result').textContent = 'Please enter a valid height.';
+            }
+        }
+    </script>
+</body>
+</html>
