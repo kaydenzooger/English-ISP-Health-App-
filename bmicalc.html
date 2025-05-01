@@ -6,80 +6,83 @@
     <title>BMI Calculator</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #e6f0ff;
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
             text-align: center;
-            padding: 50px;
+            padding: 40px;
         }
-        .container {
+        .calculator {
             background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             display: inline-block;
         }
         input {
-            width: 80%;
             padding: 10px;
-            margin: 10px 0;
+            margin: 10px;
+            width: 80%;
+            font-size: 1em;
             border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1.1em;
+            border-radius: 8px;
         }
         button {
             padding: 10px 20px;
-            font-size: 1.1em;
+            background-color: #0077cc;
             color: white;
-            background-color: #0073e6;
+            font-size: 1em;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            margin: 10px;
+            margin: 5px;
         }
         button:hover {
-            background-color: #005bb5;
+            background-color: #005fa3;
         }
-        #result {
+        #output {
             margin-top: 20px;
             font-size: 1.2em;
             font-weight: bold;
-            color: #0073e6;
+            color: #0077cc;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="calculator">
         <h1>BMI Calculator</h1>
-        <p>Enter your weight (kg) and height (m):</p>
-        <input type="number" id="weight" placeholder="Weight (kg)" required>
-        <input type="number" id="height" placeholder="Height (m)" step="0.01" required>
+        <p>Enter your weight (kg) and height (cm):</p>
+        <input type="number" id="weight" placeholder="Weight in kg">
+        <input type="number" id="height" placeholder="Height in cm">
         <br>
-        <button onclick="calculateBMI()">Calculate BMI</button>
-        <p id="result"></p>
-        <br>
+        <button onclick="calculateBMI()">Calculate</button>
+        
+        <div id="output"></div>
         <a href="index.html"><button>Back to Home</button></a>
     </div>
 
     <script>
         function calculateBMI() {
             const weight = parseFloat(document.getElementById('weight').value);
-            const height = parseFloat(document.getElementById('height').value);
-            
-            if (weight > 0 && height > 0) {
-                const bmi = (weight / (height * height)).toFixed(2);
-                let status = '';
+            const heightCm = parseFloat(document.getElementById('height').value);
+
+            if (weight > 0 && heightCm > 0) {
+                const heightM = heightCm / 100;
+                const bmi = (weight / (heightM * heightM)).toFixed(2);
+                let message = '';
+
                 if (bmi < 18.5) {
-                    status = 'Underweight';
+                    message = 'Underweight';
                 } else if (bmi < 24.9) {
-                    status = 'Normal weight';
+                    message = 'Normal weight';
                 } else if (bmi < 29.9) {
-                    status = 'Overweight';
+                    message = 'Overweight';
                 } else {
-                    status = 'Obese';
+                    message = 'Obese';
                 }
-                document.getElementById('result').textContent = `Your BMI is ${bmi} (${status})`;
+
+                document.getElementById('output').textContent = `Your BMI is ${bmi} (${message})`;
             } else {
-                document.getElementById('result').textContent = 'Please enter valid values.';
+                document.getElementById('output').textContent = 'Please enter valid numbers.';
             }
         }
     </script>
